@@ -15,3 +15,7 @@ My notes and code from the spring course
     two common types:
         >Constructor Injection
         >Setter Injection
+
+## Bean Scope:
+    >Singleton: One bean memory is shared when retireved from container.
+    >Prototype: A new bean is created each time a bean is retrieved from container.
