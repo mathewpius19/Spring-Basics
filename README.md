@@ -119,3 +119,73 @@ public ResponseEntity<StudentErrorResponse> handleException(StudentNotFoundExcep
 ### Global exception handling
 * Instead of creating an exception handler for each REST service, we can use @ControllerAdvice annotation to create a global exception handler class.
 * The @ControllerAdvice annotation allows us to globally handle any exceptions by placing a global exception handler. 
+
+## Hibernate:
+
+* Hibernate is a framework for persisting/saving Java objects in a database
+
+### Benefits of Hibernate:
+* Hibernate handles all low level sql
+* Minimizes the amount og JDBC code you have to develop.
+* Hibernate provides the Object Relational Mapper (ORM).
+
+### Object Relational Mapper (ORM):
+* The developer defines mapping between Java class and database table.
+
+* Java Class -> Hibernate -> Database
+(Hibernate acts as the Mapper that either saves or retireves objects from database)
+
+* The java class mapped to database is called entity class.
+
+### Two key classes from Hibernate:
+#### SessionFactory: 
+* Reads the hibernate config file.
+* Creates the session objects.
+* Heavy weight object, only created once in your app.
+
+```
+SessionFactory factory = new Configuration()
+                        .configure("hibernate.cfg.xml)
+                        .addAnnotatedClass(Student.class)
+                        .buildSessionFactory();
+```
+
+#### Session:
+* Acts as a wrapper around your JDBC Connection.
+* Main object used to save/retrieve files.
+* Short lived object, retrieved from session factory.
+
+```Session session = factory.getCurrentSession();
+// now we can use this session objects to save/retrieve objects from database
+```
+
+## Hibernate Database Annotations
+* @Entity - To specify which class acts as an entity for the database
+* @Table(name="table name") - to mention the name of the table in database
+* @Id - to mention the attribute which is primary key
+* @Column(name="column name") - to specify which column the field in java class corresponds to.
+
+#### @GeneratedeValue:  
+* @GenerationType.AUTO - Pick an appropriate strategy for the particular database.
+* @GenerationType.IDENTITY - Assign primary keys using database identity column.
+* @GenerationType.SEQUENCE - Assign primary keys using a database sequence.
+*@GenerationType.TABLE - Assign primary keys using an underlying database table to ensure uniqueness.
+
+## Spring boot data JPA 
+* We can make use of the JPARepository interface to implement our methods for retrieving and saving data in database
+
+```
+public interface EmployeeRepository extends JpaRepository<Entity Name, Primary Key> {
+}
+```
+
+* Using this interface we can use the findAll(), findById(),addUser,updateUser,deleteUser methods.
+
+## Spring Data Rest 
+* Using this implementation, we can implement the different rest api methods directly without providing 
+explicit methods (GET MAPPING, POST MAPPING, PUT MAPPING, DELETE MAPPING)
+
+### 3 items required for Spring Data Rest
+* The entity name
+* JPA Repository
+* Maven POM Dependancy for : spring-boot-starter-data-rest
