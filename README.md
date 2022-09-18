@@ -155,8 +155,10 @@ SessionFactory factory = new Configuration()
 * Main object used to save/retrieve files.
 * Short lived object, retrieved from session factory.
 
-```Session session = factory.getCurrentSession();
+```
+Session session = factory.getCurrentSession();
 // now we can use this session objects to save/retrieve objects from database
+
 ```
 
 ## Hibernate Database Annotations
